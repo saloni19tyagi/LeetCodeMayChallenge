@@ -1,0 +1,19 @@
+// Leetcode 30 days Challenge May : Day 2
+// Problem Name : Jewels and Stones
+// Author : Saloni
+
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        int freqofJ[100] = {0} , ans = 0 ;
+        for(int i = 0 ; i < J.size() ; i++) {
+            freqofJ[J[i]-'A']++ ;
+        }
+        for(int i = 0 ; i < S.size() ; i++) {
+            if(freqofJ[S[i]-'A']) {
+                ans++ ;
+            }
+        }
+        return ans ;
+    }
+};
