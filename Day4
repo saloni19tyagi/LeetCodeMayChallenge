@@ -1,0 +1,21 @@
+// LeetCode Monthly May Challende -> Day4
+// Problem Statement --> Number Complement
+// Author : Saloni
+
+
+class Solution {
+public:
+    int findComplement(int num) {
+        long long int binary_num = num , power = 1 , xxor;
+        int newNum = 0 ;
+        while(binary_num > 0) {
+            int bit = binary_num%2 ;
+            xxor = bit^1 ;
+            if(xxor == 1) 
+                newNum += power ;
+            binary_num = binary_num/2 ;
+            power = power*2 ;
+        }
+        return newNum ;
+    }
+};
