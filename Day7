@@ -1,0 +1,50 @@
+//LeetCode Monthly Challeneg -> May
+// Problem Name(Day7) : Cousins in Binary Tree
+// Author : Saloni
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    pair<int, int>info ;
+    void findDepth(TreeNode* root , int data , int current_depth, int parent) {
+        if(root == NULL)
+            return ;
+        if(root->val == data) {
+            info.first = current_depth ;
+            info.second = parent ;
+            return ;
+        }
+        findDepth(root->left, data, current_depth+1, root->val);
+        findDepth(root->right, data, current_depth+1, root->val) ;
+    }
+    
+    bool isCousins(TreeNode* root, int x, int y) {
+        findDepth(root, x, 0 , -1) ;
+        
+        pair<int, int> xinfo ;
+        xinfo.first = info.first ;
+        xinfo.second = info.second ;
+        
+        findDepth(root, y, 0 , -1) ;
+        
+        pair<int, int> yinfo ;
+        yinfo.first = info.first ;
+        yinfo.second = info.second ;
+        
+        if(xinfo.first == yinfo.first && xinfo.second != yinfo.second) {
+            return true ;
+        }
+        return false ;
+    }
+};
