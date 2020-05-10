@@ -1,0 +1,17 @@
+// Leetcode May Monthly Challenge
+// Problem Name (Day 9) : Valid Perfect Square
+// Author : Saloni
+
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        long long int sqr = 1 , n = 1 ;
+        while(sqr <= num) {
+            sqr = n*n ;
+            if(num == sqr)
+                return true ;
+            n++ ;
+        }
+        return false ;
+    }
+};
