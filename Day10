@@ -1,0 +1,32 @@
+//LeetCode May Monthly Challenge
+//Problem Name( Day 10) :Find the Town Judge
+// Author : Saloni
+
+
+class Solution {
+public:
+    int findJudge(int N, vector<vector<int>>& trust) {
+        int trustTo[N+1], trustBy[N+1] , ans = -1 , flag = 0;
+        
+        memset(trustTo, 0 , sizeof(trustTo)) ;
+        memset(trustBy, 0 , sizeof(trustBy)) ;
+
+        for(int i = 0 ; i < trust.size() ; i++) {
+            trustBy[trust[i][0]]++ ;
+            trustTo[trust[i][1]]++ ;
+        }
+        for(int i = 1 ; i <= N ; i++) {
+            if(trustBy[i] == 0) {
+                if(trustTo[i] == N-1) {
+                    flag++ ;
+                    ans = i ;
+                }
+            }
+        }
+        
+        if(flag != 1) {
+            ans = -1 ;
+        }
+        return ans ;
+    }
+};
