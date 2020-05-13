@@ -1,0 +1,33 @@
+// LeetCode May Monthly Challenge
+//Problem Name(Day11) : Flood Fill
+//Author : Saloni
+
+class Solution {
+public:
+    
+    int vis[55][55] = {0} ;
+    
+    void dfs(int i , int j,int n , int m, vector<vector<int>>& image, int newColor, int oriColor) {
+        image[i][j] = newColor ;
+        vis[i][j] = 1 ;
+        if(j-1 >= 0 && !vis[i][j-1] && image[i][j-1] == oriColor) {
+            dfs(i,j-1,n,m,image,newColor,oriColor) ;
+        }
+        if(j+1 < m && !vis[i][j+1] && image[i][j+1] == oriColor) {
+            dfs(i, j+1, n, m, image, newColor, oriColor) ;
+        }
+        if(i-1 >= 0 && !vis[i-1][j] && image[i-1][j] == oriColor) {
+            dfs(i-1,j, n, m, image, newColor, oriColor) ;
+        }
+        if(i+1 < n && !vis[i+1][j] && image[i+1][j] == oriColor) {
+            dfs(i+1, j, n, m, image, newColor, oriColor);
+        }
+    }
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        int n = image.size() , m = image[0].size() ;
+        int oriColor = image[sr][sc] ;
+        dfs(sr, sc,n, m, image, newColor, oriColor) ;
+        return image ;
+    }
+};
