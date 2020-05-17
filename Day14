@@ -1,0 +1,84 @@
+// LeetCode May Monthly Challenge
+//Problem Name : Implement Trie (Prefix Tree)
+// Author : Saloni
+
+
+class TrieNode {
+    char val;
+    TrieNode* child[26];
+    bool end = false;
+    friend class Trie;
+public:
+    TrieNode(char x) {
+        val = x;
+        for (auto& ele:child)
+            ele = NULL;
+    }
+};
+
+class Trie {
+    //ROOT node of the complete trie
+    TrieNode* ROOT;
+public:
+    
+    /** Initialize your data structure here. */
+    Trie() {
+        ROOT = new TrieNode('0');
+    }
+    
+    //Utility Function
+    TrieNode* insertChar(TrieNode *root, char c) {
+        if ((root->child)[c-'a']==NULL) {
+            TrieNode* temp = new TrieNode(c);
+            (root->child)[c-'a'] = temp;
+            return temp;
+        }
+        return (root->child)[c-'a'];
+    }
+    
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        TrieNode* temp;
+        temp = ROOT;
+        for (auto ele:word) {
+            temp = insertChar(temp, ele);
+        }
+        temp->end = true;
+    }
+    
+    //Utility function
+    TrieNode* searchChar(TrieNode* root, char c) {
+        return (root->child)[c-'a'];
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        TrieNode * temp = ROOT;
+        for (auto ele:word) {
+            temp = searchChar(temp, ele);
+            if (temp==NULL)
+                return false;
+        }
+        return temp->end;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        TrieNode * temp = ROOT;
+        for (auto ele:prefix) {
+            temp = searchChar(temp, ele);
+            if (temp==NULL)
+                return false;
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
