@@ -1,0 +1,32 @@
+//Leetcode Monthly Challenge May
+//Problem Name(Day15) : Maximum Sum Circular Subarray
+//Author : Saloni
+
+class Solution {
+    public int maxSubarraySumCircular(int[] A) {
+        int N = A.length;
+
+        int maxSum = A[0], cur = A[0];
+        for (int i = 1; i < N; ++i) {
+            cur = A[i] + Math.max(cur, 0);
+            maxSum = Math.max(maxSum, cur);
+        }
+        int[] rsums = new int[N];
+        rsums[N-1] = A[N-1];
+        for (int i = N-2; i >= 0; --i)
+            rsums[i] = rsums[i+1] + A[i];
+
+        int[] maxright = new int[N];
+        maxright[N-1] = A[N-1];
+        for (int i = N-2; i >= 0; --i)
+            maxright[i] = Math.max(maxright[i+1], rsums[i]);
+
+        int lsum = 0;
+        for (int i = 0; i < N-2; ++i) {
+            lsum += A[i];
+            maxSum = Math.max(maxSum, lsum + maxright[i+2]);
+        }
+
+        return maxSum ;
+    }
+}
