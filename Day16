@@ -1,0 +1,38 @@
+//LeetCode Monthly Challenge May
+//Problem Name (Day16) : Odd Even Linked List
+//Author : Saloni
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        
+        if(head == NULL || head->next == NULL)
+            return head ;
+        
+        ListNode *even = head->next ;
+        ListNode *ptr1 = even ;
+        ListNode *ptr = head ;
+        while(ptr->next != NULL && ptr->next->next != NULL) {
+            ptr->next = ptr->next->next ;
+            ptr = ptr->next ;
+            if(ptr->next != NULL) {
+                even->next = ptr->next ;
+                even = even->next ;
+            }
+        }
+        even->next = NULL ;
+        ptr->next = ptr1 ;
+        return head ;
+    }
+};
