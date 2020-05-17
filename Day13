@@ -1,0 +1,55 @@
+// LeetCode May Monthly Challenge
+// Problem Name (Day 13) : Remove K Digits
+// Author : Saloni
+
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        int size = num.size() ;
+        string newNum = "" , ans = "" ;
+        
+        if(size <= k)
+            return "0" ;
+        
+        stack<int>s ;
+
+        for(int i = 0 ; i < size ;) {
+            if(s.empty() && num[i] != 0) {
+                s.push(num[i]) ;
+                i++ ;
+            }
+            else if(!s.empty() && s.top() > num[i] && k > 0) {
+                s.pop() ;
+                k-- ;
+            }
+            else {
+                s.push(num[i]) ;
+                i++ ;
+            }
+        }
+        
+        while(!s.empty() && k > 0) {
+            s.pop() ;
+            k-- ;
+        }
+        while(!s.empty()) {
+            newNum += s.top() ;
+            s.pop() ;
+        }
+        reverse(newNum.begin(), newNum.end()) ;
+        int i = 0 ;
+        
+        while(newNum[i] == '0') {
+            i++ ;
+        }
+        while(i < newNum.size()) {
+            ans += newNum[i] ;
+            i++ ;
+        }
+         if(ans == "")
+             ans = "0" ;
+        
+        return ans ;
+        
+    }
+};
