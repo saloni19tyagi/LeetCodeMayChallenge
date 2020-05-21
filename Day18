@@ -1,0 +1,45 @@
+//Leetcode May Monthly Challenge
+//Problem Name (Day 18) :  Permutation in String
+//Author : Saloni 
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        vector<int> freq(26, 0);
+        int count = 0;
+        string s = s2 , p = s1 ;
+        for(const auto c: p) {
+            if(++freq[c-'a'] == 1) {
+                ++count;
+            }
+        }
+        
+        for(int i = 0, j = 0, size = s.size(), len = p.size(); j < size; ++j) {
+            --freq[s[j]-'a'];
+            
+            if(freq[s[j]-'a'] == 0){
+                --count;
+            }
+            else if(freq[s[j]-'a'] == -1){
+                ++count;
+            }
+            
+            if(j-i+1 > len) {
+                ++freq[s[i]-'a'];
+                
+                if(freq[s[i]-'a'] == 1){
+                    ++count;
+                }
+                else if(freq[s[i]-'a'] == 0){
+                    --count;
+                }
+                ++i;
+            }
+            if(count == 0) {
+               return true ;
+            }
+        }
+
+        return false ;   
+    }
+};
